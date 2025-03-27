@@ -2,19 +2,24 @@
 <html>
 <head>
   <title>Simulation</title>
+  <link rel="stylesheet" href="/styles.css">
   <script>
     function runSimulation() {
-      const input = document.getElementById("value").value;
-      const output = input * 2; // Replace this with your logic
-      document.getElementById("result").innerText = "Result: " + output;
+      const input = parseFloat(document.getElementById("input").value);
+      const result = input * 2; // Replace with your logic
+      document.getElementById("output").innerText = `Result: ${result}`;
     }
   </script>
 </head>
 <body>
-  <h1>Simulation</h1>
-  <input type="number" id="value" placeholder="Enter value">
-  <button onclick="runSimulation()">Run</button>
-  <p id="result"></p>
-  <a href="/">← Back</a>
+  <h1>Project Simulation</h1>
+  <p>Enter a number and see the simulation result:</p>
+  <input type="number" id="input" />
+  <button onclick="runSimulation()">Simulate</button>
+  <p id="output"></p>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+  </nav>
 </body>
 </html>
