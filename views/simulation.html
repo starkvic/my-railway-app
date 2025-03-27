@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Hippopotamus Algorithm Simulation</title>
+  <title>Hippo Pathfinding Simulation</title>
   <link rel="stylesheet" href="/styles.css">
   <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
 </head>
 <body>
-  <h1>Hippopotamus Algorithm Simulation</h1>
-  <p>Observe hippos exploring and feeding while avoiding predators in a simulated environment.</p>
+  <h1>Hippopotamus Algorithm Pathfinding</h1>
+  <p>This simulation shows a hippo navigating a grid using pathfinding logic.</p>
 
   <div id="sketch-holder"></div>
 
-  <nav>
+  <button onclick="resetSketch()">🔄 Reset Simulation</button>
+
+  <nav style="margin-top: 20px;">
     <a href="/">Home</a>
     <a href="/about">About</a>
   </nav>
 
   <script src="/hippo-sim.js"></script>
+  <script>
+    function resetSketch() {
+      location.reload(); // reloads the page and resets canvas + state
+    }
+  </script>
 </body>
 </html>
