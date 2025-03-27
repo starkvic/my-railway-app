@@ -1,16 +1,13 @@
 const express = require("express");
-const app = express();
+const path = require("path");
 
+const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-  res.send("<h1>Hello from Railway!</h1><p>You're live 🚀</p>");
-});
+app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/api/hello", (req, res) => {
-  res.json({ message: "Hello from the API!" });
-});
+app.get("/", (req, res) => res.sendFile(path.join(__dirname, "views/index.html")));
+app.get("/about", (req, res) => res.sendFile(path.join(__dirname, "views/about.html")));
+app.get("/simulation", (req, res) => res.sendFile(path.join(__dirname, "views/simulation.html")));
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`App running on port ${PORT}`));

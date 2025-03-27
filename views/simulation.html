@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simulation</title>
+  <script>
+    function runSimulation() {
+      const input = document.getElementById("value").value;
+      const output = input * 2; // Replace this with your logic
+      document.getElementById("result").innerText = "Result: " + output;
+    }
+  </script>
+</head>
+<body>
+  <h1>Simulation</h1>
+  <input type="number" id="value" placeholder="Enter value">
+  <button onclick="runSimulation()">Run</button>
+  <p id="result"></p>
+  <a href="/">← Back</a>
+</body>
+</html>
