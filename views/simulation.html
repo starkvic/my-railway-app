@@ -4,25 +4,60 @@
   <title>Hippo Pathfinding Simulation</title>
   <link rel="stylesheet" href="/styles.css">
   <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+  <style>
+    #controls {
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    select, button {
+      margin-right: 20px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Hippopotamus Algorithm Pathfinding</h1>
+  <h1>Hippo Pathfinding Simulation</h1>
   <p>This simulation shows a hippo navigating a grid using pathfinding logic.</p>
+
+  <div id="controls">
+    <label for="gridSize">Grid Size:</label>
+    <select id="gridSize">
+      <option value="20">Small</option>
+      <option value="30" selected>Medium</option>
+      <option value="40">Large</option>
+    </select>
+
+    <label for="difficulty">Difficulty:</label>
+    <select id="difficulty">
+      <option value="easy">Easy</option>
+      <option value="medium" selected>Medium</option>
+      <option value="hard">Hard</option>
+    </select>
+
+    <button onclick="resetSketch()">🔄 Reset Simulation</button>
+  </div>
 
   <div id="sketch-holder"></div>
 
-  <button onclick="resetSketch()">🔄 Reset Simulation</button>
+  <div id="stats">
+    <p><strong>Steps:</strong> <span id="step-count">0</span></p>
+    <p><strong>Grid Size:</strong> <span id="grid-size">30x30</span></p>
+    <p><strong>Difficulty:</strong> <span id="difficulty-label">Medium</span></p>
+  </div>
 
   <nav style="margin-top: 20px;">
     <a href="/">Home</a>
     <a href="/about">About</a>
   </nav>
 
-  <script src="/hippo-sim.js"></script>
   <script>
     function resetSketch() {
-      location.reload(); // reloads the page and resets canvas + state
+      location.reload();
     }
   </script>
+
+  <script src="/hippo-sim.js"></script>
 </body>
 </html>

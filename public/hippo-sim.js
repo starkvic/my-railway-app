@@ -3,23 +3,32 @@ let grid = [];
 let openSet = [];
 let closedSet = [];
 let start, end;
-let w = 30;
+let w;
 let path = [];
 let hippo;
 let hippoImg;
 let moveSpeed = 10;
 let moveCounter = 0;
 let pathCompleted = false;
+let gridSize;
+let difficulty;
+let stepCount = 0;
 
 function preload() {
   hippoImg = loadImage('assets/hippo.png');
 }
 
 function setup() {
-  createCanvas(600, 600);
+  gridSize = int(document.getElementById("gridSize").value);
+  difficulty = document.getElementById("difficulty").value;
+  updateDifficultyLabel();
+
+  w = floor(600 / gridSize);
+  createCanvas(600, 600).parent("sketch-holder");
   cols = floor(width / w);
   rows = floor(height / w);
 
+  // Init grid
   for (let i = 0; i < cols; i++) {
     grid[i] = [];
     for (let j = 0; j < rows; j++) {
@@ -41,6 +50,8 @@ function setup() {
     y: start.j * w,
     bobbing: 0
   };
+
+  document.getElementById("grid-size").innerText = `${cols}x${rows}`;
 }
 
 function draw() {
@@ -116,6 +127,9 @@ function drawHippo() {
       hippo.x = p.i * w + w / 2;
       hippo.y = p.j * w + w / 2;
       hippo.idx++;
+      stepCount++;
+      updateStats();
+
       if (hippo.idx >= path.length) {
         pathCompleted = true;
       }
@@ -133,6 +147,15 @@ function drawHippo() {
   }
 }
 
+function updateStats() {
+  document.getElementById("step-count").innerText = stepCount;
+}
+
+function updateDifficultyLabel() {
+  document.getElementById("difficulty-label").innerText =
+    difficulty.charAt(0).toUpperCase() + difficulty.slice(1);
+}
+
 function removeFromArray(arr, elt) {
   let idx = arr.indexOf(elt);
   if (idx > -1) {
@@ -144,7 +167,7 @@ class Cell {
   constructor(i, j) {
     this.i = i;
     this.j = j;
-    this.wall = random(1) < 0.15;
+    this.wall = random(1) < getWallProbability();
     this.cost = this.wall ? 50 : random(1, 10);
     this.hippoCost = Infinity;
     this.previous = undefined;
@@ -172,5 +195,18 @@ class Cell {
   highlight(col) {
     fill(col);
     rect(this.i * w, this.j * w, w - 1, w - 1);
+  }
+}
+
+function getWallProbability() {
+  switch (difficulty) {
+    case "easy":
+      return 0.05;
+    case "medium":
+      return 0.15;
+    case "hard":
+      return 0.25;
+    default:
+      return 0.15;
   }
 }
