@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Simulation</title>
+  <title>p5.js Simulation</title>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
   <link rel="stylesheet" href="/styles.css">
-  <script>
-    function runSimulation() {
-      const input = parseFloat(document.getElementById("input").value);
-      const result = input * 2; // Replace with your logic
-      document.getElementById("output").innerText = `Result: ${result}`;
-    }
-  </script>
 </head>
 <body>
-  <h1>Project Simulation</h1>
-  <p>Enter a number and see the simulation result:</p>
-  <input type="number" id="input" />
-  <button onclick="runSimulation()">Simulate</button>
-  <p id="output"></p>
+  <h1>p5.js Simulation</h1>
+  <p>This is an animated simulation using p5.js.</p>
+  <div id="sketch-holder"></div>
+
   <nav>
     <a href="/">Home</a>
     <a href="/about">About</a>
   </nav>
+
+  <script>
+    let x = 0;
+
+    function setup() {
+      let canvas = createCanvas(400, 200);
+      canvas.parent("sketch-holder");
+      background(240);
+    }
+
+    function draw() {
+      background(240);
+      fill(50, 100, 250);
+      ellipse(x, 100, 50, 50);
+      x += 2;
+      if (x > width) x = 0;
+    }
+  </script>
 </body>
 </html>
