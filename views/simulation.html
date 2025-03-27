@@ -53,8 +53,15 @@
   </nav>
 
   <script>
+    let canvasEl;
+  
     function resetSketch() {
-      location.reload();
+      if (typeof removeSketch === 'function') {
+        removeSketch();
+      }
+  
+      // Allow p5 to reinitialize
+      new p5(simSketch, document.getElementById("sketch-holder"));
     }
   </script>
 
