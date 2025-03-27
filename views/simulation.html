@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>p5.js Simulation</title>
-  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+  <title>Hippopotamus Algorithm Simulation</title>
   <link rel="stylesheet" href="/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
 </head>
 <body>
-  <h1>p5.js Simulation</h1>
-  <p>This is an animated simulation using p5.js.</p>
+  <h1>Hippopotamus Algorithm Simulation</h1>
+  <p>Observe hippos exploring and feeding while avoiding predators in a simulated environment.</p>
+
   <div id="sketch-holder"></div>
 
   <nav>
@@ -15,22 +16,6 @@
     <a href="/about">About</a>
   </nav>
 
-  <script>
-    let x = 0;
-
-    function setup() {
-      let canvas = createCanvas(400, 200);
-      canvas.parent("sketch-holder");
-      background(240);
-    }
-
-    function draw() {
-      background(240);
-      fill(50, 100, 250);
-      ellipse(x, 100, 50, 50);
-      x += 2;
-      if (x > width) x = 0;
-    }
-  </script>
+  <script src="/hippo-sim.js"></script>
 </body>
 </html>
