@@ -2,67 +2,115 @@
   "algorithms": [
     {
       "name": "Hippopotamus",
-      "best_power": 838.7568380932883
+      "best_power": 838.7568380932883,
+      "runtime": 0.0,
+      "final_voltage": 99.88719195504659,
+      "convergence_time": 56
     },
     {
       "name": "TLBO",
-      "best_power": 849.1973482022129
+      "best_power": 849.1973482022129,
+      "runtime": 0.0,
+      "final_voltage": 88.78024978526318,
+      "convergence_time": 87
     },
     {
       "name": "GA",
-      "best_power": 473.6900669985622
+      "best_power": 473.6900669985622,
+      "runtime": 0.0,
+      "final_voltage": 48.23366792679674,
+      "convergence_time": 1
     },
     {
       "name": "PSO",
-      "best_power": 627.6398808475283
+      "best_power": 627.6398808475283,
+      "runtime": 0.0,
+      "final_voltage": 100.0,
+      "convergence_time": 99
     },
     {
       "name": "ABC",
-      "best_power": 520.5904918619708
+      "best_power": 520.5904918619708,
+      "runtime": 0.0,
+      "final_voltage": 100.0,
+      "convergence_time": 2
     },
     {
       "name": "SA",
-      "best_power": 782.0717482206709
+      "best_power": 782.0717482206709,
+      "runtime": 0.0,
+      "final_voltage": 100.0,
+      "convergence_time": 64
     },
     {
       "name": "GWO",
-      "best_power": 568.1710665958248
+      "best_power": 568.1710665958248,
+      "runtime": 0.0,
+      "final_voltage": 100.0,
+      "convergence_time": 3
     },
     {
       "name": "HS",
-      "best_power": 584.9752592925154
+      "best_power": 584.9752592925154,
+      "runtime": 0.0,
+      "final_voltage": 99.3673843766922,
+      "convergence_time": 8
     },
     {
       "name": "CSA",
-      "best_power": 741.400553781783
+      "best_power": 741.400553781783,
+      "runtime": 0.0,
+      "final_voltage": 100.0,
+      "convergence_time": 10
     },
     {
       "name": "LSA",
-      "best_power": 504.11681636516886
+      "best_power": 504.11681636516886,
+      "runtime": 0.0,
+      "final_voltage": 100.0,
+      "convergence_time": 1
     },
     {
       "name": "EPO",
-      "best_power": 849.9621071866106
+      "best_power": 849.9621071866106,
+      "runtime": 0.0,
+      "final_voltage": 98.93443481931315,
+      "convergence_time": 70
     },
     {
       "name": "Cuckoo Search",
-      "best_power": 456.67229431673917
+      "best_power": 456.67229431673917,
+      "runtime": 0.0,
+      "final_voltage": 96.12084497128704,
+      "convergence_time": 5
     },
     {
       "name": "ABO",
-      "best_power": 609.127365107821
+      "best_power": 609.127365107821,
+      "runtime": 0.0,
+      "final_voltage": 97.98944778599304,
+      "convergence_time": 11
     },
     {
       "name": "HEM",
-      "best_power": 577.464439914017
+      "best_power": 577.464439914017,
+      "runtime": 0.0,
+      "final_voltage": 99.99999999996115,
+      "convergence_time": 100
     },
     {
       "name": "WSO",
-      "best_power": 847.9862031856826
+      "best_power": 847.9862031856826,
+      "runtime": 0.0,
+      "final_voltage": 98.57905675691596,
+      "convergence_time": 81
     },
     {
       "name": "DE",
-      "best_power": 847.4001584399922
+      "best_power": 847.4001584399922,
+      "runtime": 0.0,
+      "final_voltage": 100.0,
+      "convergence_time": 32
     }
   ]
 }

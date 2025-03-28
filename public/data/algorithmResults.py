@@ -909,27 +909,50 @@ plt.grid(True)
 plt.show()
 
 import json
+import time
+
+def get_summary(name, convergence, V_history, start_time):
+    best_power = float(max(convergence)) if convergence else None
+    runtime = round(time.time() - start_time, 3)
+    final_voltage = float(V_history[-1]) if V_history else None
+
+    threshold = 0.98 * best_power if best_power else 0
+    for i, p in enumerate(convergence):
+        if p >= threshold:
+            convergence_time = i + 1
+            break
+    else:
+        convergence_time = len(convergence)
+
+    return {
+        "name": name,
+        "best_power": best_power,
+        "runtime": runtime,
+        "final_voltage": final_voltage,
+        "convergence_time": convergence_time
+    }
 
 results_summary = {
     "algorithms": [
-        { "name": "Hippopotamus", "best_power": float(max(convergence_hippo)) },
-        { "name": "TLBO", "best_power": float(max(convergence_tlbo)) },
-        { "name": "GA", "best_power": float(max(convergence_ga)) },
-        { "name": "PSO", "best_power": float(max(convergence_pso)) },
-        { "name": "ABC", "best_power": float(max(convergence_abc)) },
-        { "name": "SA", "best_power": float(max(convergence_sa)) },
-        { "name": "GWO", "best_power": float(max(convergence_gwo)) },
-        { "name": "HS", "best_power": float(max(convergence_hs)) },
-        { "name": "CSA", "best_power": float(max(convergence_csa)) },
-        { "name": "LSA", "best_power": float(max(convergence_lsa)) },
-        { "name": "EPO", "best_power": float(max(convergence_epo)) },
-        { "name": "Cuckoo Search", "best_power": float(max(convergence_cs)) },
-        { "name": "ABO", "best_power": float(max(convergence_abo)) },
-        { "name": "HEM", "best_power": float(max(convergence_hem)) },
-        { "name": "WSO", "best_power": float(max(convergence_wso)) },
-        { "name": "DE", "best_power": float(max(convergence_de)) }
+        get_summary("Hippopotamus", convergence_hippo, V_hippo, start_time := time.time()),
+        get_summary("TLBO", convergence_tlbo, V_tlbo, start_time := time.time()),
+        get_summary("GA", convergence_ga, V_ga, start_time := time.time()),
+        get_summary("PSO", convergence_pso, V_pso, start_time := time.time()),
+        get_summary("ABC", convergence_abc, V_abc, start_time := time.time()),
+        get_summary("SA", convergence_sa, V_sa, start_time := time.time()),
+        get_summary("GWO", convergence_gwo, V_gwo, start_time := time.time()),
+        get_summary("HS", convergence_hs, V_hs, start_time := time.time()),
+        get_summary("CSA", convergence_csa, V_csa, start_time := time.time()),
+        get_summary("LSA", convergence_lsa, V_lsa, start_time := time.time()),
+        get_summary("EPO", convergence_epo, V_epo, start_time := time.time()),
+        get_summary("Cuckoo Search", convergence_cs, V_cs, start_time := time.time()),
+        get_summary("ABO", convergence_abo, V_abo, start_time := time.time()),
+        get_summary("HEM", convergence_hem, V_hem, start_time := time.time()),
+        get_summary("WSO", convergence_wso, V_wso, start_time := time.time()),
+        get_summary("DE", convergence_de, V_de, start_time := time.time())
     ]
 }
+
 
 # ✅ Save output to public/data/results.json for your Express app
 with open("public/data/results.json", "w") as f:

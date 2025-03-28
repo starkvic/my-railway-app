@@ -37,13 +37,21 @@
 
   <table>
     <thead>
-      <tr>
-        <th>Algorithm</th>
-        <th>Best Power Output (W)</th>
-      </tr>
+        <tr>
+            <th>Algorithm</th>
+            <th>Best Power (W)</th>
+            <th>Runtime (s)</th>
+            <th>Final Voltage (V)</th>
+            <th>Convergence Time (Iterations)</th>
+          </tr>
+          
     </thead>
     <tbody id="resultsTable"></tbody>
   </table>
+  <div style="text-align:center; margin: 20px;">
+    <button onclick="downloadResults()">Download JSON</button>
+  </div>
+  
 
   <script>
     fetch('/data/results.json')
@@ -86,17 +94,35 @@
         // 📋 Populate Table
         const tbody = document.getElementById('resultsTable');
         data.algorithms.forEach((a, i) => {
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td>${a.name}</td>
-            <td>${a.best_power.toFixed(2)}</td>
-          `;
-          if (i === maxIndex) row.style.fontWeight = 'bold';
-          tbody.appendChild(row);
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${a.name}</td>
+                <td>${a.best_power.toFixed(2)}</td>
+                <td>${a.runtime}s</td>
+                <td>${a.final_voltage?.toFixed(2)}</td>
+                <td>${a.convergence_time}</td>
+            `;
+            if (i === maxIndex) row.style.fontWeight = 'bold';
+            tbody.appendChild(row);
         });
       });
   </script>
-
+<script>
+    function downloadResults() {
+      fetch('/data/results.json')
+        .then(res => res.blob())
+        .then(blob => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'mppt-results.json';
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+        });
+    }
+    </script>
+    
   <nav style="text-align: center; margin-top: 30px;">
     <a href="/">Home</a> |
     <a href="/simulation">Simulation</a> |
