@@ -40,19 +40,25 @@
 
   <script>
     fetch('/data/results.json')
-      .then(res => res.json())
-      .then(data => {
-        const tbody = document.querySelector("#results-table tbody");
-        data.algorithms.forEach(a => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${a.name}</td>
-            <td>${a.efficiency}</td>
-            <td>${a.runtime}</td>
-          `;
-          tbody.appendChild(row);
+        .then(res => {
+            if (!res.ok) throw new Error("Failed to fetch results.json");
+            return res.json();
+        })
+        .then(data => {
+            const tbody = document.querySelector("#results-table tbody");
+            data.algorithms.forEach(a => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${a.name}</td>
+                    <td>${a.efficiency}</td>
+                    <td>${a.runtime}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        })
+        .catch(err => {
+            console.error("Error loading results:", err);
         });
-      });
   </script>
 </body>
 </html>
