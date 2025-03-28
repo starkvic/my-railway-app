@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Optimization Results</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    th, td {
+      padding: 8px;
+      border: 1px solid #ddd;
+    }
+    th {
+      background: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Photovoltaic Optimization Results</h1>
+  <p>Comparison of the Hippopotamus Algorithm with other algorithms.</p>
+
+  <table id="results-table">
+    <thead>
+      <tr>
+        <th>Algorithm</th>
+        <th>Efficiency (%)</th>
+        <th>Runtime (s)</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <nav style="margin-top: 20px;">
+    <a href="/">Home</a>
+    <a href="/simulation">Simulation</a>
+  </nav>
+
+  <script>
+    fetch('/data/results.json')
+      .then(res => res.json())
+      .then(data => {
+        const tbody = document.querySelector("#results-table tbody");
+        data.algorithms.forEach(a => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${a.name}</td>
+            <td>${a.efficiency}</td>
+            <td>${a.runtime}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      });
+  </script>
+</body>
+</html>
