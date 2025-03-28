@@ -1,7 +1,68 @@
 {
   "algorithms": [
-    {"name": "Hippopotamus", "efficiency": 93.2, "runtime": 2.1},
-    {"name": "PSO","efficiency": 91.7,"runtime": 1.9},
-    {"name": "GA","efficiency": 89.5,"runtime": 2.3}  
+    {
+      "name": "Hippopotamus",
+      "best_power": 838.7568380932883
+    },
+    {
+      "name": "TLBO",
+      "best_power": 849.1973482022129
+    },
+    {
+      "name": "GA",
+      "best_power": 473.6900669985622
+    },
+    {
+      "name": "PSO",
+      "best_power": 627.6398808475283
+    },
+    {
+      "name": "ABC",
+      "best_power": 520.5904918619708
+    },
+    {
+      "name": "SA",
+      "best_power": 782.0717482206709
+    },
+    {
+      "name": "GWO",
+      "best_power": 568.1710665958248
+    },
+    {
+      "name": "HS",
+      "best_power": 584.9752592925154
+    },
+    {
+      "name": "CSA",
+      "best_power": 741.400553781783
+    },
+    {
+      "name": "LSA",
+      "best_power": 504.11681636516886
+    },
+    {
+      "name": "EPO",
+      "best_power": 849.9621071866106
+    },
+    {
+      "name": "Cuckoo Search",
+      "best_power": 456.67229431673917
+    },
+    {
+      "name": "ABO",
+      "best_power": 609.127365107821
+    },
+    {
+      "name": "HEM",
+      "best_power": 577.464439914017
+    },
+    {
+      "name": "WSO",
+      "best_power": 847.9862031856826
+    },
+    {
+      "name": "DE",
+      "best_power": 847.4001584399922
+    }
   ]
-}  
+}

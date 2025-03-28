@@ -1,64 +1,106 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Optimization Results</title>
+  <title>MPPT Algorithm Results</title>
   <link rel="stylesheet" href="/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    #chart-container {
+      width: 90%;
+      max-width: 900px;
+      margin: 20px auto;
+    }
+
     table {
-      width: 100%;
+      width: 90%;
+      max-width: 900px;
+      margin: 30px auto;
       border-collapse: collapse;
-      margin-top: 1rem;
     }
     th, td {
       padding: 8px;
-      border: 1px solid #ddd;
+      border: 1px solid #ccc;
+      text-align: left;
     }
     th {
-      background: #f0f0f0;
+      background: #f7f7f7;
     }
   </style>
 </head>
 <body>
-  <h1>Photovoltaic Optimization Results</h1>
-  <p>Comparison of the Hippopotamus Algorithm with other algorithms.</p>
+  <h1 style="text-align:center;">MPPT Optimization Results</h1>
+  <p style="text-align:center;">Comparing Hippopotamus Algorithm with 15 others on power output.</p>
 
-  <table id="results-table">
+  <div id="chart-container">
+    <canvas id="powerChart"></canvas>
+  </div>
+
+  <table>
     <thead>
       <tr>
         <th>Algorithm</th>
-        <th>Efficiency (%)</th>
-        <th>Runtime (s)</th>
+        <th>Best Power Output (W)</th>
       </tr>
     </thead>
-    <tbody></tbody>
+    <tbody id="resultsTable"></tbody>
   </table>
-
-  <nav style="margin-top: 20px;">
-    <a href="/">Home</a>
-    <a href="/simulation">Simulation</a>
-  </nav>
 
   <script>
     fetch('/data/results.json')
-        .then(res => {
-            if (!res.ok) throw new Error("Failed to fetch results.json");
-            return res.json();
-        })
-        .then(data => {
-            const tbody = document.querySelector("#results-table tbody");
-            data.algorithms.forEach(a => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${a.name}</td>
-                    <td>${a.efficiency}</td>
-                    <td>${a.runtime}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        })
-        .catch(err => {
-            console.error("Error loading results:", err);
+      .then(res => res.json())
+      .then(data => {
+        const labels = data.algorithms.map(a => a.name);
+        const values = data.algorithms.map(a => a.best_power);
+
+        const maxIndex = values.indexOf(Math.max(...values));
+
+        // 🎯 Render Chart
+        new Chart(document.getElementById('powerChart'), {
+          type: 'bar',
+          data: {
+            labels,
+            datasets: [{
+              label: 'Best Power Output (W)',
+              data: values,
+              backgroundColor: labels.map((_, i) => i === maxIndex ? 'green' : 'steelblue')
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false },
+              tooltip: { callbacks: { label: ctx => `${ctx.raw.toFixed(2)} W` } }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: { display: true, text: 'Power Output (W)' }
+              },
+              x: {
+                title: { display: true, text: 'Algorithm' }
+              }
+            }
+          }
         });
+
+        // 📋 Populate Table
+        const tbody = document.getElementById('resultsTable');
+        data.algorithms.forEach((a, i) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${a.name}</td>
+            <td>${a.best_power.toFixed(2)}</td>
+          `;
+          if (i === maxIndex) row.style.fontWeight = 'bold';
+          tbody.appendChild(row);
+        });
+      });
   </script>
+
+  <nav style="text-align: center; margin-top: 30px;">
+    <a href="/">Home</a> |
+    <a href="/simulation">Simulation</a> |
+    <a href="/results">Results</a>
+  </nav>
 </body>
 </html>
