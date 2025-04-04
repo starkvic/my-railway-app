@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interactive Simulation</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2rem;
+    }
+
+    label, input, select {
+      margin: 5px;
+    }
+
+    #chart-container {
+      width: 90%;
+      max-width: 800px;
+      margin: 30px auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Run MPPT Algorithm Simulation</h1>
+
+  <form id="simForm">
+    <label for="algorithm">Algorithm:</label>
+    <select id="algorithm">
+      <option value="hippo">Hippopotamus</option>
+    </select>
+
+    <label for="pop_size">Population Size:</label>
+    <input type="number" id="pop_size" value="30" min="1" />
+
+    <label for="max_iter">Max Iterations:</label>
+    <input type="number" id="max_iter" value="100" min="10" />
+
+    <label for="irradiance">Irradiance (G):</label>
+    <input type="number" id="irradiance" value="800" />
+
+    <label for="temperature">Temperature (T):</label>
+    <input type="number" id="temperature" value="25" />
+
+    <button type="submit">Run Simulation</button>
+  </form>
+
+  <div id="chart-container">
+    <canvas id="convergenceChart"></canvas>
+  </div>
+
+  <div id="output"></div>
+
+  <script>
+    const form = document.getElementById("simForm");
+    const chartCtx = document.getElementById("convergenceChart").getContext("2d");
+    let chart;
+
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+
+      const body = {
+        algorithm: document.getElementById("algorithm").value,
+        pop_size: parseInt(document.getElementById("pop_size").value),
+        max_iter: parseInt(document.getElementById("max_iter").value),
+        irradiance: parseFloat(document.getElementById("irradiance").value),
+        temperature: parseFloat(document.getElementById("temperature").value)
+      };
+
+      const res = await fetch("http://localhost:5000/api/simulate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      const data = await res.json();
+      console.log(data);
+
+      // Show metadata
+      document.getElementById("output").innerHTML = `
+        <p><strong>Best Power:</strong> ${data.best_power.toFixed(2)} W</p>
+        <p><strong>Final Voltage:</strong> ${data.final_voltage.toFixed(2)} V</p>
+        <p><strong>Convergence Time:</strong> ${data.convergence_time} iterations</p>
+        <p><strong>Runtime:</strong> ${data.runtime} s</p>
+      `;
+
+      // Plot convergence
+      if (chart) chart.destroy();
+      chart = new Chart(chartCtx, {
+        type: "line",
+        data: {
+          labels: Array.from({ length: data.convergence.length }, (_, i) => i + 1),
+          datasets: [{
+            label: "Power Output",
+            data: data.convergence,
+            borderColor: "green",
+            tension: 0.3,
+            fill: false
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: "Convergence Curve"
+            },
+            tooltip: {
+              callbacks: {
+                label: ctx => `${ctx.raw.toFixed(2)} W`
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: "Power Output (W)"
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: "Iteration"
+              }
+            }
+          }
+        }
+      });
+    };
+  </script>
+</body>
+</html>

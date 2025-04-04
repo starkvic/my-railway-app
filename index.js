@@ -12,6 +12,7 @@ app.get("/", (req, res) => res.sendFile(path.join(__dirname, "views/index.html")
 app.get("/about", (req, res) => res.sendFile(path.join(__dirname, "views/about.html")));
 app.get("/simulation", (req, res) => res.sendFile(path.join(__dirname, "views/simulation.html")));
 app.get("/results", (req, res) => res.sendFile(path.join(__dirname, "views/results.html")));
+app.get("/interactive", (req, res) => {res.render("interactive");});
 
 // Start server
 app.listen(PORT, () => {
